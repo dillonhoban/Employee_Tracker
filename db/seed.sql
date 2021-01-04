@@ -9,10 +9,10 @@ VALUES
 
 INSERT INTO role (title, salary, department_id)
 VALUES
-('manager', 47000.00, 1),
-('salesman', 60000.000, 2),
-('accountent', 50000.00, 3),
-('hr_rep', 40000.00, 4);
+('Manager', 47000.00, 1),
+('Salesperson', 60000.000, 2),
+('Accountant', 50000.00, 3),
+('Human Resources Rep', 40000.00, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
