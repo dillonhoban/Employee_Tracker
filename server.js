@@ -30,7 +30,7 @@ function start() {
             name: "action",
             type: "list",
             message: "What would you like to do?",
-            choices: ["Add Department", "Add Role", "Add Employee", "View all Departments", "View all Roles", "View all Employees", "Update Employee Role", "Quit"]
+            choices: ["Add Department", "Add Role", "Add Employee", "View all Departments", "View all Roles", "View all Employees", "Update Employee Role", "Delete an Employee", "Quit"]
         })
         .then(answer => {
             switch (answer.action) {
@@ -54,6 +54,9 @@ function start() {
                     break;
                 case "Update Employee Role":
                     updateEmployee();
+                    break;
+                case "Delete an Employee":
+                    deleteEmployee();
                     break;
                 case "Quit":
                     console.log('Session ended, goodbye :)')
@@ -85,6 +88,7 @@ function addDepartment() {
         })
 
 };
+
 // Function to Add new role
 function addRole() {
     inquirer
@@ -121,6 +125,7 @@ function addRole() {
         })
 
 };
+
 // Function to Add a new employee
 function addEmployee() {
     inquirer
@@ -146,7 +151,7 @@ function addEmployee() {
             }
         ])
         .then(function (answer) {
-            connection.query("INSERT INTO employee SET ?", {
+            connection.query("INSERT INTO employees SET ?", {
                     first_name: answer.firstName,
                     last_name: answer.lastName,
                     role_id: answer.roleID,
@@ -164,6 +169,7 @@ function addEmployee() {
 
 
 };
+
 // Function to View the departments
 function viewDepartments() {
     connection.query("SELECT * FROM departments", function (err, res) {
@@ -171,36 +177,41 @@ function viewDepartments() {
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id + " | " + res[i].name);
         }
-        //console.table(connection.query("SELECT name AS departments FROM departments"))
         console.log("-----------------------------------");
         start();
     })
 };
+
 // Function to View all current roles in the company
 function viewRoles() {
-    connection.query("SELECT * FROM role", function (err, res) {
+    connection.query("SELECT * FROM roles", function (err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id + " | " + res[i].title + " | " + res[i].salary + " | " + res[i].department_id);
         }
-        //console.table(connection.query("SELECT name AS departments FROM departments"))
         console.log("-----------------------------------");
         start();
     })
 };
+
 // Function to View all Employees
 function viewEmployees() {
-    connection.query("SELECT * FROM departments", function (err, res) {
+    connection.query("SELECT * FROM employees", function (err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].id + " | " + res[i].first_name + " | " + res[i].last_name + " | " + res[i].first_name);
+            console.log(res[i].id + " | " + res[i].first_name + " | " + res[i].last_name + " | " + res[i].role_id);
         }
-        //console.table(connection.query("SELECT name AS departments FROM departments"))
         console.log("-----------------------------------");
         start();
     })
 };
+
 // Function to Update employee records
 function updateEmployee() {
 
+};
+
+// Function to delete an employee
+function deleteEmployee() {
+    
 };
